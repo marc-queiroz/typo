@@ -415,6 +415,14 @@ class Article < Content
   def access_by?(user)
     user.admin? || user_id == user.id
   end
+  
+  def merge(other_id)
+    other = get_other_article_for_merge(other_id)
+    self.body = self.body + ' ' + other.body
+    merge_comments(other_id)
+    other.destroy
+    self.save
+  end 
 
   protected
 
@@ -467,13 +475,6 @@ class Article < Content
     return from..to
   end
   
-  def merge(other_id)
-    other = get_other_article_for_merge(other_id)
-    self.body = self.body + ' ' + other.body
-    merge_comments(other_id)
-    other.destroy
-    self.save
-  end 
   
   private 
   

@@ -142,13 +142,13 @@ describe Article do
       fake_id = 98
       assert_nil Article.find_by_id(fake_id)
       assert_raise ActiveRecord::RecordNotFound do
-        @a.merge!(fake_id)
+        @a.merge(fake_id)
       end
     end
 
     it "should raise error if B is A" do
       assert_raise ArgumentError do
-        @a.merge!(@a_id)
+        @a.merge(@a_id)
       end
     end
 
